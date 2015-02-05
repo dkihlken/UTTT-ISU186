@@ -20,7 +20,11 @@ public class UTTT {
 	
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//precondition: Array is length 8 and -1<pos<9 and character is 1 or 2
+=======
+	//precondition: Array is length 9 and -1<pos<9 and character is 1 or 2
+>>>>>>> origin/master
 =======
 	//precondition: Array is length 9 and -1<pos<9 and character is 1 or 2
 >>>>>>> origin/master
@@ -32,8 +36,12 @@ public class UTTT {
 	
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//precondition: Array is length 8 and -1<pos<9
 	
+=======
+	//precondition: Array is length 9 and -1<pos<9
+>>>>>>> origin/master
 =======
 	//precondition: Array is length 9 and -1<pos<9
 >>>>>>> origin/master
