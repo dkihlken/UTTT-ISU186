@@ -18,20 +18,14 @@ public class UTTT {
 	
 	
 	
-	//precondition: Array is length 8 and -1<pos<9 and character is 1 or 2
+	//precondition: Array is length 8 and -1<pos<9 and character is , or 2
 	public static void placeMark(int[] currArray, int pos, int character){
 		
 	}
 	//postcondition: character is placed into pos position in the array
 	
 	
-	//precondition: Array is length 8 and -1<pos<9
-	public static boolean checkValidMove(int[] currArray, int pos){
-		return true;
-	}
-	
-	
-	
+	//hey
 	public static void main(String[] args) {
 		
     }
