@@ -13,6 +13,7 @@ public class UTTT {
 	//precondition: Array is length 8
 	public static int checkWin(int[] currArray){
 		return 0;
+		//hi does this work
 	}
 	//postcondition: returns 0 for no winner, 1 for X winner, 2 for O winner
 	
