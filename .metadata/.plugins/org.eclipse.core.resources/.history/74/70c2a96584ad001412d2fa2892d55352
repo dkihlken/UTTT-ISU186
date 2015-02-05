@@ -25,7 +25,7 @@ public class UTTT {
 	//postcondition: character is placed into pos position in the array
 	
 	
-	//hey
+	
 	public static void main(String[] args) {
 		
     }
