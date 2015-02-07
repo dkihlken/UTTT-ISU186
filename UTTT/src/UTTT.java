@@ -12,7 +12,24 @@ public class UTTT {
 	
 	//precondition: Array is length 8
 	public static int checkWin(int[] currArray){
-		return 0;
+		//Check if X wins
+		if((currArray[0]==X && currArray[1]==X && currArray[2]==X) || (currArray[3]==X && currArray[4]==X && currArray[5]==X)
+			|| (currArray[6]==X && currArray[7]==X && currArray[8]==X) || (currArray[0]==X && currArray[3]==X && currArray[6]==X)
+			|| (currArray[1]==X && currArray[4]==X && currArray[7]==X) || (currArray[2]==X && currArray[5]==X && currArray[8]==X)
+			|| (currArray[0]==X && currArray[4]==X && currArray[8]==X) || (currArray[6]==X && currArray[4]==X && currArray[2]==X){
+				return 1;	
+			}
+		//Check if 0 wins
+		else if((currArray[0]==O && currArray[1]==O && currArray[2]==O) || (currArray[3]==O && currArray[4]==O && currArray[5]==O)
+				|| (currArray[6]==O && currArray[7]==O && currArray[8]==O) || (currArray[0]==O && currArray[3]==O && currArray[6]==O)
+				|| (currArray[1]==O && currArray[4]==O && currArray[7]==O) || (currArray[2]==O && currArray[5]==O && currArray[8]==O)
+				|| (currArray[0]==O && currArray[4]==O && currArray[8]==O) || (currArray[6]==O && currArray[4]==O && currArray[2]==O){
+			return 2;
+		}
+		//No winner yet
+		else{
+			return 0;
+		}
 		
 	}
 	//postcondition: returns 0 for no winner, 1 for X winner, 2 for O winner
