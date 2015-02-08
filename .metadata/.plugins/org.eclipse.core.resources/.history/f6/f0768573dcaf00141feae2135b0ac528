@@ -13,17 +13,17 @@ public class UTTT {
 	//precondition: Array is length 8
 	public static int checkWin(int[] currArray){
 		//Check if X wins
-		if((currArray[0]==1 && currArray[1]==1 && currArray[2]==1) || (currArray[3]==1 && currArray[4]==1 && currArray[5]==1)
-			|| (currArray[6]==1 && currArray[7]==1 && currArray[8]==1) || (currArray[0]==1 && currArray[3]==1 && currArray[6]==1)
-			|| (currArray[1]==1 && currArray[4]==1 && currArray[7]==1) || (currArray[2]==1 && currArray[5]==1 && currArray[8]==1)
-			|| (currArray[0]==1 && currArray[4]==1 && currArray[8]==1) || (currArray[6]==1 && currArray[4]==1 && currArray[2]==1)){
+		if((currArray[0]==X && currArray[1]==X && currArray[2]==X) || (currArray[3]==X && currArray[4]==X && currArray[5]==X)
+			|| (currArray[6]==X && currArray[7]==X && currArray[8]==X) || (currArray[0]==X && currArray[3]==X && currArray[6]==X)
+			|| (currArray[1]==X && currArray[4]==X && currArray[7]==X) || (currArray[2]==X && currArray[5]==X && currArray[8]==X)
+			|| (currArray[0]==X && currArray[4]==X && currArray[8]==X) || (currArray[6]==X && currArray[4]==X && currArray[2]==X){
 				return 1;	
 			}
-		//Check if O wins
-		else if((currArray[0]==2 && currArray[1]==2 && currArray[2]==2) || (currArray[3]==2 && currArray[4]==2 && currArray[5]==2)
-				|| (currArray[6]==2 && currArray[7]==2 && currArray[8]==2) || (currArray[0]==2 && currArray[3]==2 && currArray[6]==2)
-				|| (currArray[1]==2 && currArray[4]==2 && currArray[7]==2) || (currArray[2]==2 && currArray[5]==2 && currArray[8]==2)
-				|| (currArray[0]==2 && currArray[4]==2 && currArray[8]==2) || (currArray[6]==2 && currArray[4]==2 && currArray[2]==2)){
+		//Check if 0 wins
+		else if((currArray[0]==O && currArray[1]==O && currArray[2]==O) || (currArray[3]==O && currArray[4]==O && currArray[5]==O)
+				|| (currArray[6]==O && currArray[7]==O && currArray[8]==O) || (currArray[0]==O && currArray[3]==O && currArray[6]==O)
+				|| (currArray[1]==O && currArray[4]==O && currArray[7]==O) || (currArray[2]==O && currArray[5]==O && currArray[8]==O)
+				|| (currArray[0]==O && currArray[4]==O && currArray[8]==O) || (currArray[6]==O && currArray[4]==O && currArray[2]==O){
 			return 2;
 		}
 		//No winner yet
