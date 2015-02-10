@@ -39,7 +39,7 @@ public class UTTT {
 	
 	//precondition: Array is length 9 and -1<pos<9 and character is 1 or 2
 	public static void placeMark(int[] currArray, int pos, int character){
-	
+	currArray[pos]=character;
 	}
 	//postcondition: character is placed into pos position in the array
 
@@ -47,6 +47,7 @@ public class UTTT {
 	
 	//precondition: Array is length 9 and -1<pos<9
 	public static boolean checkValidMove(int[] currArray, int pos){
+		if(currArray[pos]==0);
 		return true;
 		
 	}
