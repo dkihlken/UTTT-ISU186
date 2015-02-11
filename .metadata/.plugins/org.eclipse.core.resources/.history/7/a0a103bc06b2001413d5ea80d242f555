@@ -79,40 +79,32 @@ public class UTTT {
 	//postcondition: prints the current board with brackets and Xs and Os
 	
 	public static void runTwoPlayer(){
-	/*TODO 
-	 *add tie conditions (full board)
-	 *add loop for correct input
-	 *add winning grid double placement rule
-	 *finish the full grid method and use it
-	 */
 		int x;
 		int y;
 		System.out.println("What x");
 		x = kb.nextInt();
 		System.out.println("What y");
 		y = kb.nextInt();
-		placeMark(Board[x],CharBoard[x],y,1);
+		placeMark(Board[x],y,1);
 		x = y;
-		printGrid(CharBoard);
+		printGrid(Board);
 		do{
 			System.out.println("(player 2) What y");
 			y = kb.nextInt();
 			if(checkValidMove(Board[x],y)){
-				placeMark(Board[x],CharBoard[x],y,2);
+				placeMark(Board[x],y,2);
 			}
-			printGrid(CharBoard);
+			printGrid(Board);
 			x=y;
 			System.out.println("(player 1) What y");
 			y = kb.nextInt();
 			if(checkValidMove(Board[x],y)){
-				placeMark(Board[x],CharBoard[x],y,1);
+				placeMark(Board[x],y,1);
 			}
 			x=y;
-			printGrid(CharBoard);
+			printGrid(Board);
 			
 		}while(checkBigBoardWin(BigBoard)==0);
-		
-		//results
 	}
 	
 	public static int checkBigBoardWin(int [] B){
@@ -132,20 +124,10 @@ public class UTTT {
 		return 0;
 	}
 	
-	//FINISH IT!!!!!
-	public static boolean checkFullGrid(int [] C){
-		return true;
-	}
-	
-	
-	public static int minMaxAIMoveChoice(){
-		return 0;
-	}
-	
 	public static void main(String[] args) {
 		
 		int choice;
-		printGrid(CharBoard);
+		printGrid(Board);
 		System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai, 2 for AI vs AI)");
 		choice = kb.nextInt();
 		

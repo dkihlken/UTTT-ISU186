@@ -79,12 +79,6 @@ public class UTTT {
 	//postcondition: prints the current board with brackets and Xs and Os
 	
 	public static void runTwoPlayer(){
-	/*TODO 
-	 *add tie conditions (full board)
-	 *add loop for correct input
-	 *add winning grid double placement rule
-	 *finish the full grid method and use it
-	 */
 		int x;
 		int y;
 		System.out.println("What x");
@@ -111,8 +105,6 @@ public class UTTT {
 			printGrid(CharBoard);
 			
 		}while(checkBigBoardWin(BigBoard)==0);
-		
-		//results
 	}
 	
 	public static int checkBigBoardWin(int [] B){
@@ -129,16 +121,6 @@ public class UTTT {
 				|| (B[0]==2 && B[4]==2 && B[8]==2) || (B[6]==2 && B[4]==2 && B[2]==2)){
 					return 2;	
 				}
-		return 0;
-	}
-	
-	//FINISH IT!!!!!
-	public static boolean checkFullGrid(int [] C){
-		return true;
-	}
-	
-	
-	public static int minMaxAIMoveChoice(){
 		return 0;
 	}
 	

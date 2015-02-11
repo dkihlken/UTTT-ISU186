@@ -111,8 +111,6 @@ public class UTTT {
 			printGrid(CharBoard);
 			
 		}while(checkBigBoardWin(BigBoard)==0);
-		
-		//results
 	}
 	
 	public static int checkBigBoardWin(int [] B){
@@ -137,10 +135,6 @@ public class UTTT {
 		return true;
 	}
 	
-	
-	public static int minMaxAIMoveChoice(){
-		return 0;
-	}
 	
 	public static void main(String[] args) {
 		
