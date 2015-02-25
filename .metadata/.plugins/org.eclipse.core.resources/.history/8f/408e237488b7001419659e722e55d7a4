@@ -1,5 +1,4 @@
-	import java.util.Random;
-import java.util.Scanner;
+	import java.util.Scanner;
 
 	/* Definitions:
 	 * X=1
@@ -17,10 +16,12 @@ import java.util.Scanner;
 		//precondition: Array is length 8
 		public static void checkWin(int[] currArray,int currBoard){
 			//Check if X wins
+			System.out.println("test");
 			if((currArray[0]==1 && currArray[1]==1 && currArray[2]==1) || (currArray[3]==1 && currArray[4]==1 && currArray[5]==1)
 				|| (currArray[6]==1 && currArray[7]==1 && currArray[8]==1) || (currArray[0]==1 && currArray[3]==1 && currArray[6]==1)
 				|| (currArray[1]==1 && currArray[4]==1 && currArray[7]==1) || (currArray[2]==1 && currArray[5]==1 && currArray[8]==1)
 				|| (currArray[0]==1 && currArray[4]==1 && currArray[8]==1) || (currArray[6]==1 && currArray[4]==1 && currArray[2]==1)){
+					System.out.println("test");
 					BigBoard[currBoard] = 1;	
 				}
 			//Check if O wins
@@ -28,12 +29,15 @@ import java.util.Scanner;
 					|| (currArray[6]==2 && currArray[7]==2 && currArray[8]==2) || (currArray[0]==2 && currArray[3]==2 && currArray[6]==2)
 					|| (currArray[1]==2 && currArray[4]==2 && currArray[7]==2) || (currArray[2]==2 && currArray[5]==2 && currArray[8]==2)
 					|| (currArray[0]==2 && currArray[4]==2 && currArray[8]==2) || (currArray[6]==2 && currArray[4]==2 && currArray[2]==2)){
+				System.out.println("test");
 				BigBoard[currBoard] = 2;
 			}
 			//No winner yet
 		}
 		//postcondition: changes corresponding value in bigboard to what the winner is
 
+		
+		
 		//precondition: Array is length 9 and -1<pos<9 and character is 1 or 2
 		public static void placeMark(int[] currArray,char[] charArray, int pos, int character){
 		currArray[pos]=character;
@@ -45,6 +49,8 @@ import java.util.Scanner;
 		}
 		//postcondition: character is placed into pos position in the array
 
+		
+		
 		//precondition: Array is length 9 and -1<pos<9
 		public static boolean checkValidMove(int[] currArray, int pos){
 			if(currArray[pos]==0){
@@ -68,13 +74,18 @@ import java.util.Scanner;
 			System.out.println("|"+ A[6][0]+"|"+A[6][1]+"|"+A[6][2]+"|     |"+A[7][0]+"|"+A[7][1]+"|"+A[7][2]+"|     |"+A[8][0]+"|"+A[8][1]+"|"+A[8][2]+"|");
 			System.out.println("|"+ A[6][3]+"|"+A[6][4]+"|"+A[6][5]+"|     |"+A[7][3]+"|"+A[7][4]+"|"+A[7][5]+"|     |"+A[8][3]+"|"+A[8][4]+"|"+A[8][5]+"|");
 			System.out.println("|"+ A[6][6]+"|"+A[6][7]+"|"+A[6][8]+"|     |"+A[7][6]+"|"+A[7][7]+"|"+A[7][8]+"|     |"+A[8][6]+"|"+A[8][7]+"|"+A[8][8]+"|");
-			//System.out.println(BigBoard[0] + "," + BigBoard[1] + "," + BigBoard[2] + "," + BigBoard[3] + "," + BigBoard[4] + "," + BigBoard[5] + "," + BigBoard[6] + "," + BigBoard[7] + "," + BigBoard[8]);
+			System.out.println(BigBoard[0] + "," + BigBoard[1] + "," + BigBoard[2] + "," + BigBoard[3] + "," + BigBoard[4] + "," + BigBoard[5] + "," + BigBoard[6] + "," + BigBoard[7] + "," + BigBoard[8]);
 			
 		}
 		//postcondition: prints the current board with brackets and Xs and Os
 		
 		public static void runTwoPlayer(){
-		
+		/*TODO 
+		 *add tie conditions (full board)               (todo)
+		 *add loop for correct input                    (done)
+		 *add winning grid double placement rule        (todo)
+		 *finish the full grid method and use it        (ignore)
+		 */
 			int x;  //Big Board
 			int y;  //Little Board
 			boolean p1ValBad = true;  // ends the x loop
@@ -113,7 +124,7 @@ import java.util.Scanner;
 				p2ValBad = true;
 				
 				do{ // move is valid
-					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
+					if (BigBoard[x]!=0){
 						do{
 							System.out.println("What x");
 							x = kb.nextInt();
@@ -131,7 +142,6 @@ import java.util.Scanner;
 					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 						p1ValBad = false;
 						placeMark(Board[x],CharBoard[x],y,2);
-						checkWin(Board[x],x);
 						x=y;
 						printGrid(CharBoard);
 					}
@@ -140,10 +150,10 @@ import java.util.Scanner;
 						p1ValBad = true;
 					}
 				}while(p1ValBad);
-				
+				checkWin(Board[x],x);
 			
 				do { //move is valid
-					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
+					if (BigBoard[x]!=0){
 						do{
 							System.out.println("What x");
 							x = kb.nextInt();
@@ -161,7 +171,6 @@ import java.util.Scanner;
 					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 						p2ValBad = false;
 						placeMark(Board[x],CharBoard[x],y,1);
-						checkWin(Board[x],x);
 						x=y;
 						printGrid(CharBoard);
 					}
@@ -170,8 +179,8 @@ import java.util.Scanner;
 						p2ValBad = true;
 					}
 				}while(p2ValBad);
-				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+				checkWin(Board[x],x);
+			}while(checkBigBoardWin(BigBoard)==0);
 			
 			//results
 		}
@@ -193,94 +202,35 @@ import java.util.Scanner;
 			return 0;
 		}
 		
-		
-		public static boolean checkFullGrid(){
-			for(int i = 0; i < 9; i++){
-				for(int j = 0; j < 9; j++){
-					if(Board[i][j]==0){
-						return false;
-					}
-				}
-			}
+		/*//FINISH IT!!!!!
+		public static boolean checkFullGrid(int [] C){
 			return true;
+		}*/
+		
+		//precondition:free move
+		/*public static int doublePlacementX(){
+			int x;
+			boolean p1ValGood = true;  // ends the x loop
+			do{
+				System.out.println("I need a new x value");
+				x = kb.nextInt();
+				checkWin(Board,x);
+				if(x<=8 && x>=0 && BigBoard[x]==0){
+					p1ValGood = false;
+				}
+				else{
+					System.out.println("Invalid move. Please try again.");
+					p1ValGood = true;
+				}
+			}while(p1ValGood);
+			return x;
+		}*/
+		//postcondition: returns the new x value
+		
+		public static int minMaxAIMoveChoice(){
+			return 0;
 		}
 		
-		
-		public static boolean checkFullGridSmall(int D[]){
-			for(int j = 0; j < 9; j++){
-				if(D[j]==0){
-					return false;
-				}
-			}
-		return true;
-		}
-		
-		
-		public static int minMaxAIMoveChoice(int x){
-			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
-			copy(tempBoard,Board);
-			int [] movetots = {0,0,0,0,0,0,0,0,0};
-			
-			for(int i = 0; i<9; i++){
-				if(tempBoard[x][i] == 0){
-					tempBoard[x][i] = 2;
-					movetots[i] = runBoardPossibilities(tempBoard);
-					tempBoard[x][i] = 0;
-					
-				}
-			}
-			
-			int max = movetots[0];
-			int place = 0;
-			for(int i = 0; i<9; i++){
-				if(max<movetots[i]){
-					max = movetots[i];
-					place = i;
-				}
-			}
-			return place;
-		}
-		
-		public static int runBoardPossibilities(int [][] temp){
-			Random r = new Random();
-			int total = 0;
-			int winner = 0;
-			int [][]temp2 = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
-			for(int i = 0; i < 10000000;i++){
-				copy(temp2,temp);
-				for(int row = 0; row<temp2.length;row++){
-					for(int col = 0; col<temp2[0].length;col++){
-						if(temp2[row][col]==0){
-							temp2[row][col] = r.nextInt(2)+1;
-						}
-					}
-				}
-				winner = checkFullBoardWinner(temp2);
-				if(winner == 2){
-					total++;
-				}
-				if(winner == 1){
-					total--;
-				}
-			}
-			return total;
-		}
-		public static int checkFullBoardWinner(int [][]board){
-			int [] tbb =  {0,0,0,0,0,0,0,0,0};
-			
-			for(int i = 0; i<8; i++){
-				tbb[i] = checkBigBoardWin(board[i]);
-			}
-			
-			return checkBigBoardWin(tbb);
-		}
-		public static void copy(int [][] A1, int [][] A2){
-			for(int i = 0;i<A1.length;i++){
-				for(int j = 0;j<A1[0].length;j++){
-					A1[i][j]=A2[i][j];
-				}
-			}
-		}
 		public static void main(String[] args) {
 			
 			int choice;
