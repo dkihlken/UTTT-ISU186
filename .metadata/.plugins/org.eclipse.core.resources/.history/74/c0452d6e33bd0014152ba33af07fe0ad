@@ -1,5 +1,5 @@
 	import java.util.Random;
-	import java.util.Scanner;
+import java.util.Scanner;
 
 	/* Definitions:
 	 * X=1
@@ -318,13 +318,14 @@
 			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 			copy(tempBoard,Board);
 			int [] movetots = {0,0,0,0,0,0,0,0,0};
-			System.out.print("\ncalculating");
+			
 			for(int i = 0; i<9; i++){
 				if(tempBoard[x][i] == 0){
-					System.out.print(".");
+					System.out.println("calculating");
 					tempBoard[x][i] = 2;
 					movetots[i] = runBoardPossibilities(tempBoard);
 					tempBoard[x][i] = 0;
+					System.out.println("calculating");
 					
 				}
 			}
@@ -340,7 +341,6 @@
 					place = i;
 				}
 			}
-			System.out.println("");
 			return place;
 		}
 		
@@ -391,10 +391,9 @@
 			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 			copy(tempBoard,Board);
 			int [][] movetots = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
-			System.out.print("\ncalculating");
+			
 			for(int i = 0; i<9; i++){
 				for(int j = 0; j<9; j++){
-					System.out.print(".");
 					if(tempBoard[i][j] == 0){
 						tempBoard[i][j] = 2;
 						movetots[i][j] = runBoardPossibilities(tempBoard);
@@ -414,7 +413,6 @@
 					}
 				}
 			}
-			System.out.println("");
 			return place;
 		}
 		

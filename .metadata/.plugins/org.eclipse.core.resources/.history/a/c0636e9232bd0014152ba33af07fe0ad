@@ -1,5 +1,5 @@
 	import java.util.Random;
-	import java.util.Scanner;
+import java.util.Scanner;
 
 	/* Definitions:
 	 * X=1
@@ -294,6 +294,7 @@
 			return 0;
 		}
 		
+		
 		public static boolean checkFullGrid(){
 			for(int i = 0; i < 9; i++){
 				for(int j = 0; j < 9; j++){
@@ -305,6 +306,7 @@
 			return true;
 		}
 		
+		
 		public static boolean checkFullGridSmall(int D[]){
 			for(int j = 0; j < 9; j++){
 				if(D[j]==0){
@@ -314,17 +316,19 @@
 		return true;
 		}
 		
+		
 		public static int minMaxAIMoveChoice(int x){
 			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 			copy(tempBoard,Board);
 			int [] movetots = {0,0,0,0,0,0,0,0,0};
-			System.out.print("\ncalculating");
+			
 			for(int i = 0; i<9; i++){
 				if(tempBoard[x][i] == 0){
-					System.out.print(".");
+					System.out.println("calculating");
 					tempBoard[x][i] = 2;
 					movetots[i] = runBoardPossibilities(tempBoard);
 					tempBoard[x][i] = 0;
+					System.out.println("calculating");
 					
 				}
 			}
@@ -340,7 +344,6 @@
 					place = i;
 				}
 			}
-			System.out.println("");
 			return place;
 		}
 		
@@ -368,7 +371,6 @@
 			}
 			return total;
 		}
-
 		public static int checkFullBoardWinner(int [][]board){
 			int [] tbb =  {0,0,0,0,0,0,0,0,0};
 			
@@ -378,7 +380,6 @@
 			
 			return checkBigBoardWin(tbb);
 		}
-	
 		public static void copy(int [][] A1, int [][] A2){
 			for(int i = 0;i<A1.length;i++){
 				for(int j = 0;j<A1[0].length;j++){
@@ -391,10 +392,9 @@
 			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 			copy(tempBoard,Board);
 			int [][] movetots = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
-			System.out.print("\ncalculating");
+			
 			for(int i = 0; i<9; i++){
 				for(int j = 0; j<9; j++){
-					System.out.print(".");
 					if(tempBoard[i][j] == 0){
 						tempBoard[i][j] = 2;
 						movetots[i][j] = runBoardPossibilities(tempBoard);
@@ -414,44 +414,6 @@
 					}
 				}
 			}
-			System.out.println("");
-			return place;
-		}
-		
-		public static int pointBasedAIMoveChoice(int x){
-			int [] movetots = {0,0,0,0,0,0,0,0,0};
-			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
-			copy(tempBoard,Board);
-			for(int i = 0; i<9; i++){
-				//place move on tempBoard
-				if(true){
-				//check move for win
-					movetots[i] += 30;
-				}
-				if(true){
-				//check move for loss
-					movetots[i] -= 10;
-				}
-				if(true){
-				//check move for block
-					movetots[i] += 10;
-				}
-				if(true){
-				//check move for causing double placement
-					movetots[i] -= 5;
-				}
-				//remove move
-			}
-			
-			int max = Integer.MIN_VALUE;
-			int place = 0;
-			for(int i = 0; i<9; i++){
-				if(max<movetots[i] && tempBoard[x][i]==0){
-					max = movetots[i];
-					place = i;
-				}
-			}
-			
 			return place;
 		}
 		
