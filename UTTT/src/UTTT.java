@@ -176,6 +176,107 @@ import java.util.Scanner;
 			//results
 		}
 		
+		public static void runOnePlayer(){
+			
+			int x;  //Big Board
+			int y;  //Little Board
+			boolean p1ValBad = true;  // ends the x loop
+			boolean p2ValBad = true;  // ends the y loop
+			//Initial moves
+		
+			do{
+				System.out.println("What x");
+				x = kb.nextInt();
+				if(x<=8 && x>=0){
+					p1ValBad = false;
+				}
+				else{
+					System.out.println("Invalid move. Please try again.");
+					p1ValBad = true;
+				}
+			}while(p1ValBad);
+			do{
+				System.out.println("What y");
+				y = kb.nextInt();
+				if(y<=8 && y>=0){
+					p2ValBad = false;
+					placeMark(Board[x],CharBoard[x],y,1);
+					x = y;
+					printGrid(CharBoard);
+				}
+				else{
+					System.out.println("Invalid move. Please try again.");
+					p2ValBad = true;
+				}	
+			}while(p2ValBad);
+			
+			//Subsequent moves
+			do{ //end game
+				p1ValBad = true;
+				p2ValBad = true;
+				
+				do{ // move is valid
+					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
+						do{
+							System.out.println("What x");
+							x = doubleMinMaxAIMoveChoice();
+							if(x<=8 && x>=0){
+								p1ValBad = false;
+							}
+							else{
+								p1ValBad = true;
+							}
+						}while(p1ValBad);
+					}
+					y = minMaxAIMoveChoice(x);
+					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
+						p1ValBad = false;
+						placeMark(Board[x],CharBoard[x],y,2);
+						checkWin(Board[x],x);
+						x=y;
+						printGrid(CharBoard);
+					}
+					else{
+						System.out.println("Invalid move. Please try again.");
+						p1ValBad = true;
+					}
+				}while(p1ValBad);
+				
+			
+				do { //move is valid
+					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
+						do{
+							System.out.println("What x");
+							x = kb.nextInt();
+							if(x<=8 && x>=0){
+								p2ValBad = false;
+							}
+							else{
+								System.out.println("Invalid move. Please try again.");
+								p2ValBad = true;
+							}
+						}while(p2ValBad);
+					}
+					System.out.println("(player 1) What y");
+					y = kb.nextInt();
+					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
+						p2ValBad = false;
+						placeMark(Board[x],CharBoard[x],y,1);
+						checkWin(Board[x],x);
+						x=y;
+						printGrid(CharBoard);
+					}
+					else{
+						System.out.println("Invalid move. Please try again.");
+						p2ValBad = true;
+					}
+				}while(p2ValBad);
+				
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			
+			//results
+		}
+		
 		public static int checkBigBoardWin(int [] B){
 			
 			if((B[0]==1 && B[1]==1 && B[2]==1) || (B[3]==1 && B[4]==1 && B[5]==1)
@@ -223,17 +324,22 @@ import java.util.Scanner;
 			
 			for(int i = 0; i<9; i++){
 				if(tempBoard[x][i] == 0){
+					System.out.println("calculating");
 					tempBoard[x][i] = 2;
 					movetots[i] = runBoardPossibilities(tempBoard);
 					tempBoard[x][i] = 0;
+					System.out.println("calculating");
 					
 				}
 			}
-			
-			int max = movetots[0];
+			for(int i=0; i<9; i++){
+				if(BigBoard[i]!=0 || checkFullGridSmall(Board[i]))
+					movetots[i] -= 1000;
+			}
+			int max = Integer.MIN_VALUE;
 			int place = 0;
 			for(int i = 0; i<9; i++){
-				if(max<movetots[i]){
+				if(max<movetots[i] && tempBoard[x][i]==0){
 					max = movetots[i];
 					place = i;
 				}
@@ -246,7 +352,7 @@ import java.util.Scanner;
 			int total = 0;
 			int winner = 0;
 			int [][]temp2 = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
-			for(int i = 0; i < 10000000;i++){
+			for(int i = 0; i < 1000000;i++){
 				copy(temp2,temp);
 				for(int row = 0; row<temp2.length;row++){
 					for(int col = 0; col<temp2[0].length;col++){
@@ -257,7 +363,7 @@ import java.util.Scanner;
 				}
 				winner = checkFullBoardWinner(temp2);
 				if(winner == 2){
-					total++;
+					total+=4;
 				}
 				if(winner == 1){
 					total--;
@@ -281,6 +387,37 @@ import java.util.Scanner;
 				}
 			}
 		}
+		
+		public static int doubleMinMaxAIMoveChoice(){
+			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
+			copy(tempBoard,Board);
+			int [][] movetots = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
+			
+			for(int i = 0; i<9; i++){
+				for(int j = 0; j<9; j++){
+					if(tempBoard[i][j] == 0){
+						tempBoard[i][j] = 2;
+						movetots[i][j] = runBoardPossibilities(tempBoard);
+						tempBoard[i][j] = 0;
+						
+					}
+				}
+			}
+			
+			int max = Integer.MIN_VALUE;
+			int place = 0;
+			for(int i = 0; i<9; i++){
+				for(int j = 0; j<9; j++){
+					if(max<movetots[i][j] && tempBoard[i][j] == 0){
+					max = movetots[i][j];
+					place = i;
+					}
+				}
+			}
+			return place;
+		}
+		
+		
 		public static void main(String[] args) {
 			
 			int choice;
@@ -291,5 +428,8 @@ import java.util.Scanner;
 			if(choice == 0){
 				runTwoPlayer();
 			}
+			if(choice == 1){
+				runOnePlayer();
 			}
-	    }
+		}
+	}
