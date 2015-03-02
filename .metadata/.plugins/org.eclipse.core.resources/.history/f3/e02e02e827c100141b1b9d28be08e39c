@@ -715,10 +715,10 @@
 			if(choice == 0){
 				runTwoPlayer();
 			}
-			if(choice == 2){
+			if(choice == 1){
 				runOnePlayerMedium();
 			}
-			if(choice == 3){
+			if(choice == 2){
 				runOnePlayerHard();
 			}
 		}

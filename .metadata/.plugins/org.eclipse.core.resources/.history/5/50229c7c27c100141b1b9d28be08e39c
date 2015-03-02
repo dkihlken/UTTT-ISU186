@@ -176,7 +176,7 @@
 			//results
 		}
 		
-		public static void runOnePlayerMedium(){
+		public static void runOnePlayerEasy(){
 			
 			int x;  //Big Board
 			int y;  //Little Board
@@ -494,8 +494,8 @@
 			int [][] movetots = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
 			System.out.print("\ncalculating");
 			for(int i = 0; i<9; i++){
-				System.out.print(".");
 				for(int j = 0; j<9; j++){
+					System.out.print(".");
 					if(tempBoard[i][j] == 0){
 						tempBoard[i][j] = 2;
 						movetots[i][j] = runBoardPossibilities(tempBoard);
@@ -709,16 +709,16 @@
 			
 			int choice;
 			printGrid(CharBoard);
-			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai(Easy), 2 for person vs Ai(Medium), 3 for person vs Ai(Hard))");
+			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai, 2 for AI vs AI)");
 			choice = kb.nextInt();
 			
 			if(choice == 0){
 				runTwoPlayer();
 			}
-			if(choice == 2){
-				runOnePlayerMedium();
+			if(choice == 1){
+				runOnePlayerEasy();
 			}
-			if(choice == 3){
+			if(choice == 2){
 				runOnePlayerHard();
 			}
 		}

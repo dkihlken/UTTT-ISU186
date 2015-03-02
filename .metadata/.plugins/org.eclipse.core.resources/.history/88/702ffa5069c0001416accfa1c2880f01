@@ -176,7 +176,7 @@
 			//results
 		}
 		
-		public static void runOnePlayerMedium(){
+		public static void runOnePlayerEasy(){
 			
 			int x;  //Big Board
 			int y;  //Little Board
@@ -277,7 +277,7 @@
 			//results
 		}
 		
-		public static void runOnePlayerHard(){
+public static void runOnePlayerHard(){
 			
 			int x;  //Big Board
 			int y;  //Little Board
@@ -494,8 +494,8 @@
 			int [][] movetots = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
 			System.out.print("\ncalculating");
 			for(int i = 0; i<9; i++){
-				System.out.print(".");
 				for(int j = 0; j<9; j++){
+					System.out.print(".");
 					if(tempBoard[i][j] == 0){
 						tempBoard[i][j] = 2;
 						movetots[i][j] = runBoardPossibilities(tempBoard);
@@ -523,14 +523,13 @@
 			int [] movetots = {0,0,0,0,0,0,0,0,0};
 			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 			copy(tempBoard,Board);
-			System.out.print("\ncalculating");
 			for(int i = 0; i<9; i++){
 				//place move on tempBoard
 				if(tempBoard[x][i] == 0){
 				tempBoard[x][i] = 2;
 				if(checkBigBoardWin(tempBoard[x]) == 2){
 				//check move for win
-					movetots[i] += 100;
+					movetots[i] += 30;
 				}
 				if(checkForLoss(tempBoard[i])){
 				//check move for loss
@@ -561,7 +560,6 @@
 			for(int i = 0; i<9; i++){
 				if(movetots[i] == movetots[place]  && tempBoard[x][i]==0){
 					tempBoard[x][i] = 2;
-					System.out.print(".");
 					movetots2[i] = runBoardPossibilities(tempBoard);
 					tempBoard[x][i] = 0;
 				}
@@ -573,10 +571,58 @@
 					place = i;
 				}
 			}
-			System.out.println("");
+			
 			
 			return place;
 		}
+		
+		public static boolean checkForWin(int A []){
+			
+			if((A[1] == 2 && A[2] == 2)||
+					(A[4] == 2 && A[8] == 2)||
+						(A[3] == 2 && A[6] == 2)){
+				return true;
+			}
+			if((A[4] == 2 && A[7] == 2)||
+					(A[0] == 2 && A[2] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[1] == 2)||
+					(A[5] == 2 && A[8] == 2)||
+						(A[4] == 2 && A[6] == 2)){
+				return true;
+			}
+			if((A[4] == 2 && A[5] == 2)||
+					(A[0] == 2 && A[6] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[8] == 2)||
+					(A[2] == 2 && A[6] == 2)||
+						(A[1] == 2 && A[7] == 2)||
+							(A[3] == 2 && A[5] == 2)){
+				return true;
+			}
+			if((A[2] == 2 && A[8] == 2)||
+					(A[3] == 2 && A[4] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[3] == 2)||
+					(A[2] == 2 && A[4] == 2)||
+						(A[7] == 2 && A[8] == 2)){
+				return true;
+			}
+			if((A[6] == 2 && A[8] == 2)||
+					(A[1] == 2 && A[4] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[4] == 2)||
+					(A[6] == 2 && A[7] == 2)||
+						(A[2] == 2 && A[5] == 2)){
+				return true;
+			}
+		
+		return false;
+	}
 		
 		public static boolean checkForLoss(int A []){
 			
@@ -709,16 +755,16 @@
 			
 			int choice;
 			printGrid(CharBoard);
-			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai(Easy), 2 for person vs Ai(Medium), 3 for person vs Ai(Hard))");
+			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai, 2 for AI vs AI)");
 			choice = kb.nextInt();
 			
 			if(choice == 0){
 				runTwoPlayer();
 			}
-			if(choice == 2){
-				runOnePlayerMedium();
+			if(choice == 1){
+				runOnePlayerEasy();
 			}
-			if(choice == 3){
+			if(choice == 2){
 				runOnePlayerHard();
 			}
 		}

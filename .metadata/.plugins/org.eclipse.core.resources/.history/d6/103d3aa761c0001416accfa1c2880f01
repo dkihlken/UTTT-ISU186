@@ -176,7 +176,7 @@
 			//results
 		}
 		
-		public static void runOnePlayerMedium(){
+		public static void runOnePlayer(){
 			
 			int x;  //Big Board
 			int y;  //Little Board
@@ -229,107 +229,6 @@
 						}while(p1ValBad);
 					}
 					y = minMaxAIMoveChoice(x);
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p1ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,2);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p1ValBad = true;
-					}
-				}while(p1ValBad);
-				
-			
-				do { //move is valid
-					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
-						do{
-							System.out.println("What x");
-							x = kb.nextInt();
-							if(x<=8 && x>=0){
-								p2ValBad = false;
-							}
-							else{
-								System.out.println("Invalid move. Please try again.");
-								p2ValBad = true;
-							}
-						}while(p2ValBad);
-					}
-					System.out.println("(player 1) What y");
-					y = kb.nextInt();
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p2ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,1);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p2ValBad = true;
-					}
-				}while(p2ValBad);
-				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
-			
-			//results
-		}
-		
-		public static void runOnePlayerHard(){
-			
-			int x;  //Big Board
-			int y;  //Little Board
-			boolean p1ValBad = true;  // ends the x loop
-			boolean p2ValBad = true;  // ends the y loop
-			//Initial moves
-		
-			do{
-				System.out.println("What x");
-				x = kb.nextInt();
-				if(x<=8 && x>=0){
-					p1ValBad = false;
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p1ValBad = true;
-				}
-			}while(p1ValBad);
-			do{
-				System.out.println("What y");
-				y = kb.nextInt();
-				if(y<=8 && y>=0){
-					p2ValBad = false;
-					placeMark(Board[x],CharBoard[x],y,1);
-					x = y;
-					printGrid(CharBoard);
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p2ValBad = true;
-				}	
-			}while(p2ValBad);
-			
-			//Subsequent moves
-			do{ //end game
-				p1ValBad = true;
-				p2ValBad = true;
-				
-				do{ // move is valid
-					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
-						do{
-							System.out.println("What x");
-							x = doubleMinMaxAIMoveChoice();
-							if(x<=8 && x>=0){
-								p1ValBad = false;
-							}
-							else{
-								p1ValBad = true;
-							}
-						}while(p1ValBad);
-					}
-					y = pointBasedAIMoveChoice(x);
 					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 						p1ValBad = false;
 						placeMark(Board[x],CharBoard[x],y,2);
@@ -494,8 +393,8 @@
 			int [][] movetots = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
 			System.out.print("\ncalculating");
 			for(int i = 0; i<9; i++){
-				System.out.print(".");
 				for(int j = 0; j<9; j++){
+					System.out.print(".");
 					if(tempBoard[i][j] == 0){
 						tempBoard[i][j] = 2;
 						movetots[i][j] = runBoardPossibilities(tempBoard);
@@ -523,14 +422,13 @@
 			int [] movetots = {0,0,0,0,0,0,0,0,0};
 			int [][] tempBoard = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 			copy(tempBoard,Board);
-			System.out.print("\ncalculating");
 			for(int i = 0; i<9; i++){
 				//place move on tempBoard
 				if(tempBoard[x][i] == 0){
 				tempBoard[x][i] = 2;
 				if(checkBigBoardWin(tempBoard[x]) == 2){
 				//check move for win
-					movetots[i] += 100;
+					movetots[i] += 30;
 				}
 				if(checkForLoss(tempBoard[i])){
 				//check move for loss
@@ -559,9 +457,8 @@
 			}
 			int [] movetots2 = {0,0,0,0,0,0,0,0,0};
 			for(int i = 0; i<9; i++){
-				if(movetots[i] == movetots[place]  && tempBoard[x][i]==0){
+				if(movetots[i] == movetots[place]){
 					tempBoard[x][i] = 2;
-					System.out.print(".");
 					movetots2[i] = runBoardPossibilities(tempBoard);
 					tempBoard[x][i] = 0;
 				}
@@ -573,10 +470,58 @@
 					place = i;
 				}
 			}
-			System.out.println("");
+			
 			
 			return place;
 		}
+		
+		public static boolean checkForWin(int A []){
+			
+			if((A[1] == 2 && A[2] == 2)||
+					(A[4] == 2 && A[8] == 2)||
+						(A[3] == 2 && A[6] == 2)){
+				return true;
+			}
+			if((A[4] == 2 && A[7] == 2)||
+					(A[0] == 2 && A[2] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[1] == 2)||
+					(A[5] == 2 && A[8] == 2)||
+						(A[4] == 2 && A[6] == 2)){
+				return true;
+			}
+			if((A[4] == 2 && A[5] == 2)||
+					(A[0] == 2 && A[6] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[8] == 2)||
+					(A[2] == 2 && A[6] == 2)||
+						(A[1] == 2 && A[7] == 2)||
+							(A[3] == 2 && A[5] == 2)){
+				return true;
+			}
+			if((A[2] == 2 && A[8] == 2)||
+					(A[3] == 2 && A[4] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[3] == 2)||
+					(A[2] == 2 && A[4] == 2)||
+						(A[7] == 2 && A[8] == 2)){
+				return true;
+			}
+			if((A[6] == 2 && A[8] == 2)||
+					(A[1] == 2 && A[4] == 2)){
+				return true;
+			}
+			if((A[0] == 2 && A[4] == 2)||
+					(A[6] == 2 && A[7] == 2)||
+						(A[2] == 2 && A[5] == 2)){
+				return true;
+			}
+		
+		return false;
+	}
 		
 		public static boolean checkForLoss(int A []){
 			
@@ -709,17 +654,14 @@
 			
 			int choice;
 			printGrid(CharBoard);
-			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai(Easy), 2 for person vs Ai(Medium), 3 for person vs Ai(Hard))");
+			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai, 2 for AI vs AI)");
 			choice = kb.nextInt();
 			
 			if(choice == 0){
 				runTwoPlayer();
 			}
-			if(choice == 2){
-				runOnePlayerMedium();
-			}
-			if(choice == 3){
-				runOnePlayerHard();
+			if(choice == 1){
+				runOnePlayer();
 			}
 		}
 	}

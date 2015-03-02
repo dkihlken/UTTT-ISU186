@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="public static void runOnePlayerHard(){"/>
 			<item value="checkWin(BigBoard,x)"/>
 			<item value="checkWin(BigBoard)"/>
 			<item value="p2ValGood"/>
@@ -15,7 +16,6 @@
 			<item value="0"/>
 			<item value="1"/>
 			<item value="currArray"/>
-			<item value="||"/>
 		</list>
 		<list key="replacehistory">
 			<item value="checkWin(Board,x)"/>
