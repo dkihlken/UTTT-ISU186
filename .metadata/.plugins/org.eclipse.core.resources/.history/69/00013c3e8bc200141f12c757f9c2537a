@@ -5,10 +5,6 @@
 	 * X=1
 	 * O=2
 	 * empty=0
-	 * BULBA = Basic and Unrealistically Lame But Atrocious (AI)
-	 * IVY = Intermediate and Varying Yung (AI)
-	 * VENUS = Very Elaborate New Ultimate Super (AI)
-	 * 
 	 */
 
 	public class UTTT {
@@ -180,108 +176,6 @@
 			
 			//results
 		}
-
-
-		public static void runOnePlayerEasy(){
-			Random r = new Random();
-			int x;  //Big Board
-			int y;  //Little Board
-			boolean p1ValBad = true;  // ends the x loop
-			boolean p2ValBad = true;  // ends the y loop
-			//Initial moves
-		
-			do{
-				System.out.println("What x");
-				x = kb.nextInt();
-				if(x<=8 && x>=0){
-					p1ValBad = false;
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p1ValBad = true;
-				}
-			}while(p1ValBad);
-			do{
-				System.out.println("What y");
-				y = kb.nextInt();
-				if(y<=8 && y>=0){
-					p2ValBad = false;
-					placeMark(Board[x],CharBoard[x],y,1);
-					x = y;
-					printGrid(CharBoard);
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p2ValBad = true;
-				}	
-			}while(p2ValBad);
-			
-			//Subsequent moves
-			do{ //end game
-				p1ValBad = true;
-				p2ValBad = true;
-				
-				do{ // move is valid
-					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
-						do{
-							System.out.println("What x");
-							x = r.nextInt(9);
-							if(x<=8 && x>=0){
-								p1ValBad = false;
-							}
-							else{
-								p1ValBad = true;
-							}
-						}while(p1ValBad);
-					}
-					y = r.nextInt(9);
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p1ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,2);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						p1ValBad = true;
-					}
-				}while(p1ValBad);
-				
-			
-				do { //move is valid
-					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
-						do{
-							System.out.println("What x");
-							x = kb.nextInt();
-							if(x<=8 && x>=0){
-								p2ValBad = false;
-							}
-							else{
-								System.out.println("Invalid move. Please try again.");
-								p2ValBad = true;
-							}
-						}while(p2ValBad);
-					}
-					System.out.println("(player 1) What y");
-					y = kb.nextInt();
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p2ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,1);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p2ValBad = true;
-					}
-				}while(p2ValBad);
-				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
-			
-			//results
-		}
-
 		
 		public static void runOnePlayerMedium(){
 			
@@ -336,6 +230,106 @@
 						}while(p1ValBad);
 					}
 					y = minMaxAIMoveChoice(x);
+					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
+						p1ValBad = false;
+						placeMark(Board[x],CharBoard[x],y,2);
+						checkWin(Board[x],x);
+						x=y;
+						printGrid(CharBoard);
+					}
+					else{
+						p1ValBad = true;
+					}
+				}while(p1ValBad);
+				
+			
+				do { //move is valid
+					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
+						do{
+							System.out.println("What x");
+							x = kb.nextInt();
+							if(x<=8 && x>=0){
+								p2ValBad = false;
+							}
+							else{
+								System.out.println("Invalid move. Please try again.");
+								p2ValBad = true;
+							}
+						}while(p2ValBad);
+					}
+					System.out.println("(player 1) What y");
+					y = kb.nextInt();
+					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
+						p2ValBad = false;
+						placeMark(Board[x],CharBoard[x],y,1);
+						checkWin(Board[x],x);
+						x=y;
+						printGrid(CharBoard);
+					}
+					else{
+						System.out.println("Invalid move. Please try again.");
+						p2ValBad = true;
+					}
+				}while(p2ValBad);
+				
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			
+			//results
+		}
+
+		public static void runOnePlayerEasy(){
+			Random r = new Random();
+			int x;  //Big Board
+			int y;  //Little Board
+			boolean p1ValBad = true;  // ends the x loop
+			boolean p2ValBad = true;  // ends the y loop
+			//Initial moves
+		
+			do{
+				System.out.println("What x");
+				x = kb.nextInt();
+				if(x<=8 && x>=0){
+					p1ValBad = false;
+				}
+				else{
+					System.out.println("Invalid move. Please try again.");
+					p1ValBad = true;
+				}
+			}while(p1ValBad);
+			do{
+				System.out.println("What y");
+				y = kb.nextInt();
+				if(y<=8 && y>=0){
+					p2ValBad = false;
+					placeMark(Board[x],CharBoard[x],y,1);
+					x = y;
+					printGrid(CharBoard);
+				}
+				else{
+					System.out.println("Invalid move. Please try again.");
+					p2ValBad = true;
+				}	
+			}while(p2ValBad);
+			
+			//Subsequent moves
+			do{ //end game
+				p1ValBad = true;
+				p2ValBad = true;
+				
+				do{ // move is valid
+					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
+						do{
+							System.out.println("What x");
+							x = r.nextInt(9);
+							if(x<=8 && x>=0){
+								p1ValBad = false;
+							}
+							else{
+								p1ValBad = true;
+							}
+						}while(p1ValBad);
+					}
+					y = r.nextInt(9);
 					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 						p1ValBad = false;
 						placeMark(Board[x],CharBoard[x],y,2);
@@ -491,9 +485,9 @@
 					|| (B[0]==1 && B[4]==1 && B[8]==1) || (B[6]==1 && B[4]==1 && B[2]==1)){
 						return 1;	
 					}
-			if((B[0]==2 && B[1]==2 && B[2]==2) || (B[3]==2 && B[4]==2 && B[5]==2)
+			if((B[0]==2 && B[2]==2 && B[2]==2) || (B[3]==2 && B[4]==2 && B[5]==2)
 					|| (B[6]==2 && B[7]==2 && B[8]==2) || (B[0]==2 && B[3]==2 && B[6]==2)
-					|| (B[1]==2 && B[4]==2 && B[7]==2) || (B[2]==2 && B[5]==2 && B[8]==2)
+					|| (B[2]==2 && B[4]==2 && B[7]==2) || (B[2]==2 && B[5]==2 && B[8]==2)
 					|| (B[0]==2 && B[4]==2 && B[8]==2) || (B[6]==2 && B[4]==2 && B[2]==2)){
 						return 2;	
 					}
@@ -556,7 +550,7 @@
 			int total = 0;
 			int winner = 0;
 			int [][]temp2 = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
-			for(int i = 0; i < 100000;i++){
+			for(int i = 0; i < 1000000;i++){
 				copy(temp2,temp);
 				for(int row = 0; row<temp2.length;row++){
 					for(int col = 0; col<temp2[0].length;col++){
@@ -573,14 +567,13 @@
 				if(winner == 1){
 					total--;
 				}
-				winner = 0;
 				}
 			}
 			return total;
 		}
 		
 		public static boolean checkFiftyFifty(int [][] B){
-			int total = 0;
+			int total;
 			for(int row = 0; row<B.length;row++){
 				for(int col = 0; col<B[0].length;col++){
 					if(B[row][col] == 1){
@@ -595,8 +588,7 @@
 			}
 			
 		}
-		
-		public static int checkFullBoardWinner(int [][]board){
+	public static int checkFullBoardWinner(int [][]board){
 			int [] tbb =  {0,0,0,0,0,0,0,0,0};
 			
 			for(int i = 0; i<8; i++){
@@ -670,28 +662,6 @@
 				//check move for causing double placement
 					movetots[i] -= 5;
 				}
-				/*
-				if(){
-					//check move for big win
-					movetots[i] -= 10;
-				}
-				if(){
-					//check move for big loss
-					movetots[i] -= 10;
-				}
-				if(){
-					//check move for next turn block
-					movetots[i] -= 10;
-				}
-				if(){
-					//check move for loss
-					movetots[i] -= 10;
-				}
-				if(){
-					//check move for loss
-					movetots[i] -= 10;
-				}
-				*/
 				//remove move
 				tempBoard[x][i] = 0;
 				}
@@ -700,7 +670,6 @@
 			int max = Integer.MIN_VALUE;
 			int place = 0;
 			for(int i = 0; i<9; i++){
-				System.out.println(movetots[i]);
 				if(max<movetots[i] && tempBoard[x][i]==0){
 					max = movetots[i];
 					place = i;
@@ -717,7 +686,7 @@
 			}
 			max = Integer.MIN_VALUE;
 			for(int i = 0; i<9; i++){
-				if(max<movetots2[i] && tempBoard[x][i]==0 && movetots2[i]!=0){
+				if(max<movetots2[i] && tempBoard[x][i]==0){
 					max = movetots2[i];
 					place = i;
 				}
@@ -852,7 +821,8 @@
 			
 			return false;
 		}
-			
+		
+		
 		public static void main(String[] args) {
 			
 			int choice;
