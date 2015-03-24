@@ -33,6 +33,8 @@
 					|| (currArray[1]==2 && currArray[4]==2 && currArray[7]==2) || (currArray[2]==2 && currArray[5]==2 && currArray[8]==2)
 					|| (currArray[0]==2 && currArray[4]==2 && currArray[8]==2) || (currArray[6]==2 && currArray[4]==2 && currArray[2]==2)){
 				BigBoard[currBoard] = 2;
+			}else if (checkFullGridSmall(currArray)){
+				BigBoard[currBoard]=3;
 			}
 			//No winner yet
 		}
@@ -486,9 +488,18 @@
 					}
 				}while(p2ValBad);
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
+		}
+		
+		public static boolean checkTie(){
+			for(int i = 0; i<9; i++){
+				if(BigBoard[i] == 0){
+					return false;
+				}
+			}
+			return true;
 		}
 		
 		public static void runZeroPlayer(){
@@ -551,7 +562,7 @@
 					}while(p1ValBad);
 				
 			
-					if(checkBigBoardWin(BigBoard)==0 && !checkFullGrid()){
+					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid())){
 						break;
 					}
 					
@@ -583,7 +594,7 @@
 					
 					
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
 		}
@@ -646,7 +657,6 @@
 			int max = Integer.MIN_VALUE;
 			int place = 0;
 			for(int i = 0; i<9; i++){
-				System.out.println(movetots[i]);
 				if(max<movetots[i] && tempBoard[x][i]==0){
 					max = movetots[i];
 					place = i;
@@ -794,7 +804,6 @@
 			int max = Integer.MIN_VALUE;
 			int place = 0;
 			for(int i = 0; i<9; i++){
-				System.out.println(movetots[i]);
 				if(max<movetots[i] && tempBoard[x][i]==0){
 					max = movetots[i];
 					place = i;
@@ -948,14 +957,6 @@
 			return false;
 		}
 			
-		public static void clearBoard(){
-			for(int i = 0; i<9; i++){
-				for(int j = 0; j<9; j++){
-					Board[i][j] = 0;
-				}
-			}
-			
-		}
 		
 		public static void main(String[] args) {
 			int choice;

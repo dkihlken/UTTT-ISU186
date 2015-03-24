@@ -33,6 +33,8 @@
 					|| (currArray[1]==2 && currArray[4]==2 && currArray[7]==2) || (currArray[2]==2 && currArray[5]==2 && currArray[8]==2)
 					|| (currArray[0]==2 && currArray[4]==2 && currArray[8]==2) || (currArray[6]==2 && currArray[4]==2 && currArray[2]==2)){
 				BigBoard[currBoard] = 2;
+			}else if (checkFullGridSmall(currArray)){
+				BigBoard[currBoard]=3;
 			}
 			//No winner yet
 		}
@@ -147,6 +149,9 @@
 					}
 				}while(p1ValBad);
 				
+					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
+						break;
+					}
 			
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
@@ -162,6 +167,8 @@
 						}while(p2ValBad);
 					}
 
+					
+					
 					do { //move is valid
 					System.out.println("(player 1) What y");
 					y = kb.nextInt();
@@ -178,7 +185,7 @@
 					}
 				}while(p2ValBad);
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
 		}
@@ -250,7 +257,10 @@
 					}
 				}while(p1ValBad);
 				
-			
+					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
+						break;
+					}
+					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
 							System.out.println("What x");
@@ -281,7 +291,7 @@
 					}
 				}while(p2ValBad);
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
 		}
@@ -353,7 +363,9 @@
 					}
 				}while(p1ValBad);
 				
-			
+					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
+						break;
+					}
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
 							System.out.println("What x");
@@ -384,7 +396,7 @@
 					}
 				}while(p2ValBad);
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
 		}
@@ -441,6 +453,8 @@
 							}
 						}while(p1ValBad);
 					}
+					
+					
 					do{ // move is valid
 					y = pointBasedAIMoveChoice(x);
 					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
@@ -456,7 +470,9 @@
 				}while(p1ValBad);
 				
 			
-				
+					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
+						break;
+					}
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
 							System.out.println("What x");
@@ -486,9 +502,18 @@
 					}
 				}while(p2ValBad);
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
+		}
+		
+		public static boolean checkTie(){
+			for(int i = 0; i<9; i++){
+				if(BigBoard[i] == 0){
+					return false;
+				}
+			}
+			return true;
 		}
 		
 		public static void runZeroPlayer(){
@@ -551,7 +576,7 @@
 					}while(p1ValBad);
 				
 			
-					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid())){
+					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
 						break;
 					}
 					
@@ -583,7 +608,7 @@
 					
 					
 				
-			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid());
+			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			
 			//results
 		}
