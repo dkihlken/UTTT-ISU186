@@ -717,6 +717,7 @@
 		}
 		
 		public static double runBoardPossibilities(int [][] temp){
+			Random r = new Random();
 			int totalwins = 0;
 			int totallosses = 0;
 			int winner = 0;
@@ -826,7 +827,7 @@
 				}
 				if(checkForLoss(tempBoard[i])){
 				//check move for loss
-					movetots[i] -= 20;
+					movetots[i] -= 10;
 				}
 				if(checkForBlock(tempBoard[x],i)){
 				//check move for block
@@ -834,7 +835,7 @@
 				}
 				if(BigBoard[i]!=0 || checkFullGridSmall(tempBoard[x])){
 				//check move for causing double placement
-					movetots[i] -= 15;
+					movetots[i] -= 5;
 				}
 				
 				if(checkFullBoardWinner(tempBoard) == 2){
