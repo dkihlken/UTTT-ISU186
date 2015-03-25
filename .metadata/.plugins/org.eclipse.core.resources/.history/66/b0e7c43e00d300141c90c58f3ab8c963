@@ -17,6 +17,7 @@
 		static char [][] CharBoard = {{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '}};
 		static Scanner kb = new Scanner(System.in);
 		static Random r = new Random();
+		static int finalWinner = 0;
 		
 		//precondition: Array is length 8
 		public static void checkWin(int[] currArray,int currBoard){

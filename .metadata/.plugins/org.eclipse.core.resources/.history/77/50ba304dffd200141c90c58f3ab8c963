@@ -186,15 +186,7 @@
 				}while(p2ValBad);
 				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
-			if(checkBigBoardWin(BigBoard)==1){
-				System.out.println("Player 1 wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==2){
-				System.out.println("Player 2 wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==0){
-				System.out.println("It's a tie!");
-			}
+			
 			//results
 		}
 
@@ -298,15 +290,7 @@
 				}while(p2ValBad);
 				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
-			if(checkBigBoardWin(BigBoard)==1){
-				System.out.println("The user wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==2){
-				System.out.println("The computer wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==0){
-				System.out.println("It's a tie!");
-			}
+			
 			//results
 		}
 		
@@ -410,15 +394,7 @@
 				}while(p2ValBad);
 				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
-			if(checkBigBoardWin(BigBoard)==1){
-				System.out.println("The user wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==2){
-				System.out.println("The computer wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==0){
-				System.out.println("It's a tie!");
-			}
+			
 			//results
 		}
 
@@ -524,15 +500,7 @@
 				}while(p2ValBad);
 				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
-			if(checkBigBoardWin(BigBoard)==1){
-				System.out.println("The user wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==2){
-				System.out.println("The computer wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==0){
-				System.out.println("It's a tie!");
-			}
+			
 			//results
 		}
 		
@@ -628,15 +596,7 @@
 					
 				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
-			if(checkBigBoardWin(BigBoard)==1){
-				System.out.println("Player 1 wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==2){
-				System.out.println("Player 2 wins!");
-			}
-			if(checkBigBoardWin(BigBoard)==0){
-				System.out.println("It's a tie!");
-			}
+			
 			//results
 		}
 		
