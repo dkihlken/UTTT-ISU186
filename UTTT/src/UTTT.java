@@ -23,21 +23,22 @@ import javax.swing.*;
 		static Scanner kb = new Scanner(System.in);
 		static Random r = new Random();
 		public static JButton [][] bList = new JButton [9][9];
-		public static int state = 0;
-		//state: 1 = waiting; 2 = not ready, do nothing;
+		public static volatile boolean state = false;
+		//state: true = waiting; false = not ready, do nothing;
 		public static int x;
 		public static int y;
 		public static int ix;
 		public static int iy;
 		public static ImageIcon imgx;
 		public static ImageIcon imgo;
+		public static int winner1;
 		@Override
 		public void actionPerformed(ActionEvent a) {
-			if(state == 1){
+			if(state){
 				for(int i = 0; i < 9; i++){
 					for(int j = 0; j < 9; j++){
 						if(bList[i][j] == a.getSource()){
-							state = 2;
+							state = false;
 							ix = i;
 							iy = j;
 						}
@@ -93,7 +94,7 @@ import javax.swing.*;
 		
 		//precondition: array is leng0th 9 and width 9 and full of 0, 1,or 2
 		public static void printGrid(char [][] A){
-			System.out.println("|"+ A[0][0]+"|"+A[0][1]+"|"+A[0][2]+"|     |"+A[1][0]+"|"+A[1][1]+"|"+A[1][2]+"|     |"+A[2][0]+"|"+A[2][1]+"|"+A[2][2]+"|");
+			/*System.out.println("|"+ A[0][0]+"|"+A[0][1]+"|"+A[0][2]+"|     |"+A[1][0]+"|"+A[1][1]+"|"+A[1][2]+"|     |"+A[2][0]+"|"+A[2][1]+"|"+A[2][2]+"|");
 			System.out.println("|"+ A[0][3]+"|"+A[0][4]+"|"+A[0][5]+"|     |"+A[1][3]+"|"+A[1][4]+"|"+A[1][5]+"|     |"+A[2][3]+"|"+A[2][4]+"|"+A[2][5]+"|");
 			System.out.println("|"+ A[0][6]+"|"+A[0][7]+"|"+A[0][8]+"|     |"+A[1][6]+"|"+A[1][7]+"|"+A[1][8]+"|     |"+A[2][6]+"|"+A[2][7]+"|"+A[2][8]+"|");
 			System.out.println("-------------------------------");
@@ -104,7 +105,7 @@ import javax.swing.*;
 			System.out.println("|"+ A[6][0]+"|"+A[6][1]+"|"+A[6][2]+"|     |"+A[7][0]+"|"+A[7][1]+"|"+A[7][2]+"|     |"+A[8][0]+"|"+A[8][1]+"|"+A[8][2]+"|");
 			System.out.println("|"+ A[6][3]+"|"+A[6][4]+"|"+A[6][5]+"|     |"+A[7][3]+"|"+A[7][4]+"|"+A[7][5]+"|     |"+A[8][3]+"|"+A[8][4]+"|"+A[8][5]+"|");
 			System.out.println("|"+ A[6][6]+"|"+A[6][7]+"|"+A[6][8]+"|     |"+A[7][6]+"|"+A[7][7]+"|"+A[7][8]+"|     |"+A[8][6]+"|"+A[8][7]+"|"+A[8][8]+"|");
-			System.out.println("");
+			System.out.println("");*/
 			//System.out.println(BigBoard[0] + "," + BigBoard[1] + "," + BigBoard[2] + "," + BigBoard[3] + "," + BigBoard[4] + "," + BigBoard[5] + "," + BigBoard[6] + "," + BigBoard[7] + "," + BigBoard[8]);
 			
 			for(int i = 0; i < 9; i++){
@@ -130,9 +131,12 @@ import javax.swing.*;
 			//Initial moves
 		
 			do{
-				state = 1;
-				while(state == 1){
-					System.out.print("");
+				state = true;
+				while(state){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
 				}
 				System.out.print("");
 				if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0){
@@ -156,9 +160,12 @@ import javax.swing.*;
 					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							state = 1;
-							while(state == 1){
-								System.out.print("");
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
 							}
 							System.out.print("");
 							if(ix<=8 && ix>=0 && BigBoard[ix]==0 && !checkFullGridSmall(Board[ix]) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
@@ -176,9 +183,12 @@ import javax.swing.*;
 					}else{
 
 						do{ // move is valid
-							state = 1;
-							while(state == 1){
-								System.out.print("");
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
 							}
 							System.out.print("");
 							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
@@ -203,9 +213,12 @@ import javax.swing.*;
 					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							state = 1;
-							while(state == 1){
-								System.out.print("");
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
 							}
 							System.out.print("");
 							if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
@@ -223,9 +236,12 @@ import javax.swing.*;
 					}else{
 
 						do{ // move is valid
-							state = 1;
-							while(state == 1){
-								System.out.print("");
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
 							}
 							System.out.print("");
 							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[x],iy)){
@@ -481,37 +497,33 @@ import javax.swing.*;
 
 		public static void runOnePlayerHard(){
 			
-			int x;  //Big Board
-			int y;  //Little Board
+			
 			boolean p1ValBad = true;  // ends the x loop
 			boolean p2ValBad = true;  // ends the y loop
 			//Initial moves
 		
 			do{
-				System.out.println("What x");
-				x = kb.nextInt();
-				if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+				state = true;
+				while(state){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
+				}
+				System.out.print("");
+				if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0){
 					p1ValBad = false;
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p1ValBad = true;
-				}
-			}while(p1ValBad);
-			do{
-				System.out.println("What y");
-				y = kb.nextInt();
-				if(y<=8 && y>=0){
-					p2ValBad = false;
+					x = ix;
+					y = iy;
 					placeMark(Board[x],CharBoard[x],y,1);
 					x = y;
 					printGrid(CharBoard);
 				}
 				else{
-					System.out.println("Invalid move. Please try again.");
-					p2ValBad = true;
-				}	
-			}while(p2ValBad);
+					
+					p1ValBad = true;
+				}
+			}while(p1ValBad);
 			
 			//Subsequent moves
 			do{ //end game
@@ -521,7 +533,6 @@ import javax.swing.*;
 				
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							System.out.println("What x");
 							x = doubleMinMaxAIMoveChoice();
 							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
 								p1ValBad = false;
@@ -553,42 +564,60 @@ import javax.swing.*;
 					}
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							System.out.println("What x");
-							x = kb.nextInt();
-							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
+							}
+							System.out.print("");
+							if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
 								p2ValBad = false;
+								x = ix;
+								y = iy;
+								placeMark(Board[x],CharBoard[x],y,1);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
+								p2ValBad = true;
+							}
+						}while(p2ValBad);
+					}else{
+
+						do{ // move is valid
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
+							}
+							System.out.print("");
+							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[x],iy)){
+								y = iy;
+								p2ValBad = false;
+								placeMark(Board[x],CharBoard[x],y,1);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
 							}
 							else{
-								System.out.println("Invalid move. Please try again.");
 								p2ValBad = true;
 							}
 						}while(p2ValBad);
 					}
-					do { //move is valid
-					System.out.println("(player 1) What y");
-					y = kb.nextInt();
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p2ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,1);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p2ValBad = true;
-					}
-				}while(p2ValBad);
 				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
 			if(checkBigBoardWin(BigBoard)==1){
-				System.out.println("The user wins!");
+				winner1 = 1;
 			}
 			if(checkBigBoardWin(BigBoard)==2){
-				System.out.println("The computer wins!");
+				winner1 = 2;
 			}
 			if(checkBigBoardWin(BigBoard)==0){
-				System.out.println("It's a tie!");
+				winner1 = 0;
 			}
 			//results
 		}
@@ -1070,9 +1099,11 @@ import javax.swing.*;
 			    imgx = new ImageIcon("X.png");
 			    imgo = new ImageIcon("O.png");
 			  
-			w.setSize(900, 900);
+			w.setSize(1020, 1020);
+			w.setContentPane(new JLabel(new ImageIcon("Grid.png")));
 			w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        w.setLayout(new GridLayout(9,9));
+	        w.setLayout(new GridLayout(9,9,15,15));
+	        
 			for(int i = 0; i < 9; i++){
 				for(int j = 0; j < 9; j++){
 					bList[i][j] = new JButton();
@@ -1173,18 +1204,6 @@ import javax.swing.*;
 			JFrame window = new JFrame("UTTT");
 			new UTTT(window);
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			int choice;
 			printGrid(CharBoard);
 			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai(Easy), 2 for person vs Ai(Medium), 3 for person vs Ai(Hard), 4 for AI vs AI)");
@@ -1204,6 +1223,36 @@ import javax.swing.*;
 			}
 			if(choice == 4){
 				runZeroPlayer();	
+			}
+			if(winner1 == 1){
+				JFrame frame = new JFrame("Winner");
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		        JLabel label = new JLabel("The winner is X!!!!!");
+		        frame.getContentPane().add(label);
+
+		        frame.pack();
+		        frame.setVisible(true);
+			}
+			if(winner1 == 2){
+				JFrame frame = new JFrame("Winner");
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		        JLabel label = new JLabel("The winner is O!!!!!");
+		        frame.getContentPane().add(label);
+
+		        frame.pack();
+		        frame.setVisible(true);
+			}
+			if(winner1 == 0){
+				JFrame frame = new JFrame("Winner");
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		        JLabel label = new JLabel("It's a Tie!!!!!");
+		        frame.getContentPane().add(label);
+
+		        frame.pack();
+		        frame.setVisible(true);
 			}
 		}
 	}

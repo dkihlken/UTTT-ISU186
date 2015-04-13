@@ -2,8 +2,9 @@
 import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 	/* Definitions:
 	 * X=1
@@ -22,53 +23,28 @@ import javax.swing.*;
 		static Scanner kb = new Scanner(System.in);
 		static Random r = new Random();
 		public static JButton [][] bList = new JButton [9][9];
-		public static int state = 0;
-		//state: 1 = waiting; 2 = not ready, do nothing;
+		public static volatile boolean state = false;
+		//state: true = waiting; false = not ready, do nothing;
 		public static int x;
 		public static int y;
-		
+		public static int ix;
+		public static int iy;
+		public static ImageIcon imgx;
+		public static ImageIcon imgo;
 		@Override
 		public void actionPerformed(ActionEvent a) {
-			if(state == 1){
-				state = 2;
+			if(state){
 				for(int i = 0; i < 9; i++){
 					for(int j = 0; j < 9; j++){
-						
 						if(bList[i][j] == a.getSource()){
-							x = i;
-							y = j;
-							System.out.println("test " + x + " " + y);
+							state = false;
+							ix = i;
+							iy = j;
 						}
 					}
 				}
 			}
-			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<game stuff>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
@@ -133,10 +109,10 @@ import javax.swing.*;
 			
 			for(int i = 0; i < 9; i++){
 				for(int j = 0; j < 9; j++){
-					if(A[i][j] == 1)
-					bList[i][j].setText("X");
-					if(A[i][j] == 2)
-					bList[i][j].setText("O");
+					if(A[i][j] == 'X')
+					bList[i][j].setIcon(imgx);
+					if(A[i][j] == 'O')
+					bList[i][j].setIcon(imgo);
 					
 				}
 			}
@@ -154,112 +130,134 @@ import javax.swing.*;
 			//Initial moves
 		
 			do{
-				state = 1;
-				while(state == 1){
-					
+				state = true;
+				while(state){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
 				}
-				System.out.println("test 1");
-				if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+				System.out.print("");
+				if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0){
 					p1ValBad = false;
+					x = ix;
+					y = iy;
+					placeMark(Board[x],CharBoard[x],y,1);
+					x = y;
+					printGrid(CharBoard);
 				}
 				else{
 					
 					p1ValBad = true;
 				}
 			}while(p1ValBad);
-			do{
-				if(y<=8 && y>=0){
-					p2ValBad = false;
-					placeMark(Board[x],CharBoard[x],y,1);
-					x = y;
-					printGrid(CharBoard);
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p2ValBad = true;
-				}	
-			}while(p2ValBad);
 			
 			//Subsequent moves
 			do{ //end game
 				p1ValBad = true;
 				p2ValBad = true;
-				
+					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							state = 1;
-							while(state == 1){
-								
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
 							}
-							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+							System.out.print("");
+							if(ix<=8 && ix>=0 && BigBoard[ix]==0 && !checkFullGridSmall(Board[ix]) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
 								p1ValBad = false;
+								x = ix;
+								y = iy;
+								placeMark(Board[x],CharBoard[x],y,2);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
+								p1ValBad = true;
 							}
-							else{
-								System.out.println("Invalid move. Please try again.");
+						}while(p1ValBad);
+					}else{
+
+						do{ // move is valid
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
+							}
+							System.out.print("");
+							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
+								y = iy;
+								p1ValBad = false;
+								placeMark(Board[x],CharBoard[x],y,2);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
 								p1ValBad = true;
 							}
 						}while(p1ValBad);
 					}
-
-					do{ // move is valid
-						state = 1;
-						while(state == 1){
-							
-						}
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p1ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,2);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p1ValBad = true;
-					}
-				}while(p1ValBad);
-				
 					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
 						break;
 					}
-			
+					
+					
+			//<<<<<<<<<<<<<<<<<<<<<<<split
+					
+					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							state = 1;
-							while(state == 1){
-								
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
 							}
-							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+							System.out.print("");
+							if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
 								p2ValBad = false;
+								x = ix;
+								y = iy;
+								placeMark(Board[x],CharBoard[x],y,2);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
+								p2ValBad = true;
+							}
+						}while(p2ValBad);
+					}else{
+
+						do{ // move is valid
+							state = true;
+							while(state){
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+								}
+							}
+							System.out.print("");
+							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[x],iy)){
+								y = iy;
+								p2ValBad = false;
+								placeMark(Board[x],CharBoard[x],y,1);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
 							}
 							else{
-								System.out.println("Invalid move. Please try again.");
 								p2ValBad = true;
 							}
 						}while(p2ValBad);
 					}
-
-					
-					
-					do { //move is valid
-						state = 1;
-						while(state == 1){
-							
-						}
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p2ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,1);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p2ValBad = true;
-					}
-				}while(p2ValBad);
-				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
+			
 			if(checkBigBoardWin(BigBoard)==1){
 				System.out.println("Player 1 wins!");
 			}
@@ -1083,9 +1081,13 @@ import javax.swing.*;
 				
 		
 		public UTTT(JFrame w){
+			
+			    imgx = new ImageIcon("X.png");
+			    imgo = new ImageIcon("O.png");
+			  
 			w.setSize(900, 900);
 			w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        w.setLayout(new GridLayout(9,9));
+	        w.setLayout(new GridLayout(9,9,15,15));
 			for(int i = 0; i < 9; i++){
 				for(int j = 0; j < 9; j++){
 					bList[i][j] = new JButton();
@@ -1176,6 +1178,7 @@ import javax.swing.*;
 			for(int i = 0; i < 9; i++){
 				for(int j = 0; j < 9; j++){
 					bList[i][j].addActionListener(this);
+					bList[i][j].setFocusable(false);
 				}
 			}
 			w.setVisible(true);
