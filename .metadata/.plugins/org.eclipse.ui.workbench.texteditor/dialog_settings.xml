@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="return" key="selection"/>
+		<item value="y =" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="return"/>
-			<item value="X has"/>
-			<item value="double"/>
-			<item value="zero"/>
-			<item value="main"/>
-			<item value="public static void runOnePlayerHard(){"/>
-			<item value="checkWin(BigBoard,x)"/>
-			<item value="checkWin(BigBoard)"/>
-		</list>
-		<list key="replacehistory">
-			<item value="checkWin(Board,x)"/>
+			<item value="y ="/>
+			<item value="y="/>
 			<item value="p2ValBad"/>
 			<item value="p1ValBad"/>
-			<item value="&apos; &apos;"/>
-			<item value="2"/>
-			<item value="B"/>
-			<item value="|     |"/>
-			<item value="+A"/>
+			<item value="test"/>
+			<item value="p1"/>
+			<item value="b"/>
+			<item value=" "/>
+		</list>
+		<list key="replacehistory">
+			<item value="p2"/>
+			<item value="w.add(b"/>
+			<item value=""/>
+			<item value="bList"/>
+			<item value="w"/>
+			<item value="p1x"/>
+			<item value="checkWin(Board,x)"/>
+			<item value="p2ValBad"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="305" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="444" key="DIALOG_HEIGHT"/>
-		<item value="1543" key="DIALOG_X_ORIGIN"/>
+		<item value="655" key="DIALOG_X_ORIGIN"/>
 		<item value="284" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -1,6 +1,11 @@
 	import java.util.Random;
-	import java.util.Scanner;
+import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 	/* Definitions:
 	 * X=1
 	 * O=2
@@ -11,12 +16,37 @@
 	 * 
 	 */
 
-	public class UTTT {
+	public class UTTT implements ActionListener{
 		static int [][] Board = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 		static int [] BigBoard = {0,0,0,0,0,0,0,0,0};
 		static char [][] CharBoard = {{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '},{' ',' ',' ',' ',' ',' ',' ',' ',' '}};
 		static Scanner kb = new Scanner(System.in);
 		static Random r = new Random();
+		public static JButton [][] bList = new JButton [9][9];
+		public static int state = 0;
+		//state: 1 = waiting; 2 = not ready, do nothing;
+		public static int x;
+		public static int y;
+		public static int ix;
+		public static int iy;
+		public static ImageIcon imgx;
+		public static ImageIcon imgo;
+		@Override
+		public void actionPerformed(ActionEvent a) {
+			if(state == 1){
+				for(int i = 0; i < 9; i++){
+					for(int j = 0; j < 9; j++){
+						if(bList[i][j] == a.getSource()){
+							state = 2;
+							ix = i;
+							iy = j;
+						}
+					}
+				}
+			}
+		}
+		
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<game stuff>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 		//precondition: Array is length 8
 		public static void checkWin(int[] currArray,int currBoard){
@@ -77,115 +107,142 @@
 			System.out.println("");
 			//System.out.println(BigBoard[0] + "," + BigBoard[1] + "," + BigBoard[2] + "," + BigBoard[3] + "," + BigBoard[4] + "," + BigBoard[5] + "," + BigBoard[6] + "," + BigBoard[7] + "," + BigBoard[8]);
 			
+			for(int i = 0; i < 9; i++){
+				for(int j = 0; j < 9; j++){
+					if(A[i][j] == 'X')
+					bList[i][j].setIcon(imgx);
+					if(A[i][j] == 'O')
+					bList[i][j].setIcon(imgo);
+					
+				}
+			}
+			
+			
 		}
 		//postcondition: prints the current board with brackets and Xs and Os
 		
 		public static void runTwoPlayer(){
 		
-			int x;  //Big Board
-			int y;  //Little Board
+			x = 0;
+			y = 0;
 			boolean p1ValBad = true;  // ends the x loop
 			boolean p2ValBad = true;  // ends the y loop
 			//Initial moves
 		
 			do{
-				System.out.println("What x");
-				x = kb.nextInt();
-				if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+				state = 1;
+				while(state == 1){
+					System.out.print("");
+				}
+				System.out.print("");
+				if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0){
 					p1ValBad = false;
-				}
-				else{
-					System.out.println("Invalid move. Please try again.");
-					p1ValBad = true;
-				}
-			}while(p1ValBad);
-			do{
-				System.out.println("What y");
-				y = kb.nextInt();
-				if(y<=8 && y>=0){
-					p2ValBad = false;
+					x = ix;
+					y = iy;
 					placeMark(Board[x],CharBoard[x],y,1);
 					x = y;
 					printGrid(CharBoard);
 				}
 				else{
-					System.out.println("Invalid move. Please try again.");
-					p2ValBad = true;
-				}	
-			}while(p2ValBad);
+					
+					p1ValBad = true;
+				}
+			}while(p1ValBad);
 			
 			//Subsequent moves
 			do{ //end game
 				p1ValBad = true;
 				p2ValBad = true;
-				
+					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							System.out.println("What x");
-							x = kb.nextInt();
-							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
-								p1ValBad = false;
+							state = 1;
+							while(state == 1){
+								System.out.print("");
 							}
-							else{
-								System.out.println("Invalid move. Please try again.");
+							System.out.print("");
+							if(ix<=8 && ix>=0 && BigBoard[ix]==0 && !checkFullGridSmall(Board[ix]) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
+								p1ValBad = false;
+								x = ix;
+								y = iy;
+								placeMark(Board[x],CharBoard[x],y,2);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
+								p1ValBad = true;
+							}
+						}while(p1ValBad);
+					}else{
+
+						do{ // move is valid
+							state = 1;
+							while(state == 1){
+								System.out.print("");
+							}
+							System.out.print("");
+							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
+								y = iy;
+								p1ValBad = false;
+								placeMark(Board[x],CharBoard[x],y,2);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
 								p1ValBad = true;
 							}
 						}while(p1ValBad);
 					}
-
-					do{ // move is valid
-					System.out.println("(player 2) What y");
-					y = kb.nextInt();
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p1ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,2);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p1ValBad = true;
-					}
-				}while(p1ValBad);
-				
 					if(!(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie())){
 						break;
 					}
-			
+					
+					
+			//<<<<<<<<<<<<<<<<<<<<<<<split
+					
+					
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
-							System.out.println("What x");
-							x = kb.nextInt();
-							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
+							state = 1;
+							while(state == 1){
+								System.out.print("");
+							}
+							System.out.print("");
+							if(ix<=8 && ix>=0 && (BigBoard[ix]==0 && !checkFullGridSmall(Board[ix])) && iy<=8 && iy>=0 && checkValidMove(Board[ix],iy)){
 								p2ValBad = false;
+								x = ix;
+								y = iy;
+								placeMark(Board[x],CharBoard[x],y,2);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
+							}else{
+								p2ValBad = true;
+							}
+						}while(p2ValBad);
+					}else{
+
+						do{ // move is valid
+							state = 1;
+							while(state == 1){
+								System.out.print("");
+							}
+							System.out.print("");
+							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[x],iy)){
+								y = iy;
+								p2ValBad = false;
+								placeMark(Board[x],CharBoard[x],y,1);
+								checkWin(Board[x],x);
+								x=y;
+								printGrid(CharBoard);
 							}
 							else{
-								System.out.println("Invalid move. Please try again.");
 								p2ValBad = true;
 							}
 						}while(p2ValBad);
 					}
-
-					
-					
-					do { //move is valid
-					System.out.println("(player 1) What y");
-					y = kb.nextInt();
-					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
-						p2ValBad = false;
-						placeMark(Board[x],CharBoard[x],y,1);
-						checkWin(Board[x],x);
-						x=y;
-						printGrid(CharBoard);
-					}
-					else{
-						System.out.println("Invalid move. Please try again.");
-						p2ValBad = true;
-					}
-				}while(p2ValBad);
-				
 			}while(checkBigBoardWin(BigBoard)==0 && !checkFullGrid() && !checkTie());
+			
 			if(checkBigBoardWin(BigBoard)==1){
 				System.out.println("Player 1 wins!");
 			}
@@ -1007,7 +1064,127 @@
 			return false;
 		}
 				
+		
+		public UTTT(JFrame w){
+			
+			    imgx = new ImageIcon("X.png");
+			    imgo = new ImageIcon("O.png");
+			  
+			w.setSize(900, 900);
+			w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        w.setLayout(new GridLayout(9,9));
+			for(int i = 0; i < 9; i++){
+				for(int j = 0; j < 9; j++){
+					bList[i][j] = new JButton();
+				}
+			}
+			w.add(bList[0][0]);
+			w.add(bList[0][1]);
+			w.add(bList[0][2]);
+			w.add(bList[1][0]);
+			w.add(bList[1][1]);
+			w.add(bList[1][2]);
+			w.add(bList[2][0]);
+			w.add(bList[2][1]);
+			w.add(bList[2][2]);
+			w.add(bList[0][3]);
+			w.add(bList[0][4]);
+			w.add(bList[0][5]);
+			w.add(bList[1][3]);
+			w.add(bList[1][4]);
+			w.add(bList[1][5]);
+			w.add(bList[2][3]);
+			w.add(bList[2][4]);
+			w.add(bList[2][5]);
+			w.add(bList[0][6]);
+			w.add(bList[0][7]);
+			w.add(bList[0][8]);
+			w.add(bList[1][6]);
+			w.add(bList[1][7]);
+			w.add(bList[1][8]);
+			w.add(bList[2][6]);
+			w.add(bList[2][7]);
+			w.add(bList[2][8]);
+			w.add(bList[3][0]);
+			w.add(bList[3][1]);
+			w.add(bList[3][2]);
+			w.add(bList[4][0]);
+			w.add(bList[4][1]);
+			w.add(bList[4][2]);
+			w.add(bList[5][0]);
+			w.add(bList[5][1]);
+			w.add(bList[5][2]);
+			w.add(bList[3][3]);
+			w.add(bList[3][4]);
+			w.add(bList[3][5]);
+			w.add(bList[4][3]);
+			w.add(bList[4][4]);
+			w.add(bList[4][5]);
+			w.add(bList[5][3]);
+			w.add(bList[5][4]);
+			w.add(bList[5][5]);
+			w.add(bList[3][6]);
+			w.add(bList[3][7]);
+			w.add(bList[3][8]);
+			w.add(bList[4][6]);
+			w.add(bList[4][7]);
+			w.add(bList[4][8]);
+			w.add(bList[5][6]);
+			w.add(bList[5][7]);
+			w.add(bList[5][8]);
+			w.add(bList[6][0]);
+			w.add(bList[6][1]);
+			w.add(bList[6][2]);
+			w.add(bList[7][0]);
+			w.add(bList[7][1]);
+			w.add(bList[7][2]);
+			w.add(bList[8][0]);
+			w.add(bList[8][1]);
+			w.add(bList[8][2]);
+			w.add(bList[6][3]);
+			w.add(bList[6][4]);
+			w.add(bList[6][5]);
+			w.add(bList[7][3]);
+			w.add(bList[7][4]);
+			w.add(bList[7][5]);
+			w.add(bList[8][3]);
+			w.add(bList[8][4]);
+			w.add(bList[8][5]);
+			w.add(bList[6][6]);
+			w.add(bList[6][7]);
+			w.add(bList[6][8]);
+			w.add(bList[7][6]);
+			w.add(bList[7][7]);
+			w.add(bList[7][8]);
+			w.add(bList[8][6]);
+			w.add(bList[8][7]);
+			w.add(bList[8][8]);
+			
+			for(int i = 0; i < 9; i++){
+				for(int j = 0; j < 9; j++){
+					bList[i][j].addActionListener(this);
+					bList[i][j].setFocusable(false);
+				}
+			}
+			w.setVisible(true);
+		}
+		
 		public static void main(String[] args) {
+			JFrame window = new JFrame("UTTT");
+			new UTTT(window);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			int choice;
 			printGrid(CharBoard);
 			System.out.println("What mode would you like to play? (0 for 2 player, 1 for person vs Ai(Easy), 2 for person vs Ai(Medium), 3 for person vs Ai(Hard), 4 for AI vs AI)");
