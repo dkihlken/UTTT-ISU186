@@ -1,8 +1,11 @@
 	import java.util.Random;
-	import java.util.Scanner;
-	import java.awt.*;
-	import java.awt.event.*;
-	import javax.swing.*;
+import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 	/* Definitions:
 	 * X=1
 	 * O=2

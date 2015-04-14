@@ -1,8 +1,11 @@
 	import java.util.Random;
-	import java.util.Scanner;
-	import java.awt.*;
-	import java.awt.event.*;
-	import javax.swing.*;
+import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 	/* Definitions:
 	 * X=1
 	 * O=2
@@ -13,6 +16,9 @@
 	 * 
 	 */
 
+//TODO - remove all printlns
+// add easy and medium and zero player
+// scale pictures
 
 	public class UTTT implements ActionListener{
 		static int [][] Board = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
@@ -338,6 +344,7 @@
 				
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
+							System.out.println("What x");
 							x = r.nextInt(9);
 							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
 								p1ValBad = false;
@@ -425,15 +432,18 @@
 			//Initial moves
 		
 			do{
+				System.out.println("What x");
 				x = kb.nextInt();
 				if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
 					p1ValBad = false;
 				}
 				else{
+					System.out.println("Invalid move. Please try again.");
 					p1ValBad = true;
 				}
 			}while(p1ValBad);
 			do{
+				System.out.println("What y");
 				y = kb.nextInt();
 				if(y<=8 && y>=0){
 					p2ValBad = false;
@@ -444,6 +454,7 @@
 					printGrid(CharBoard);
 				}
 				else{
+					System.out.println("Invalid move. Please try again.");
 					p2ValBad = true;
 				}	
 			}while(p2ValBad);
@@ -455,6 +466,7 @@
 				
 					if (BigBoard[x]!=0 || checkFullGridSmall(Board[x])){
 						do{
+							System.out.println("What x");
 							x = doubleMinMaxAIMoveChoice();
 							if(x<=8 && x>=0 && (BigBoard[x]==0 && !checkFullGridSmall(Board[x]))){
 								p1ValBad = false;
@@ -670,8 +682,6 @@
 				y = r.nextInt(9);
 				if(y<=8 && y>=0){
 					p2ValBad = false;
-					prevx = x;
-					prevy = y;
 					placeMark(Board[x],CharBoard[x],y,1);
 					x = y;
 					printGrid(CharBoard);
@@ -701,8 +711,6 @@
 						y = pointBasedAIMoveChoice(x);
 						if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 							p1ValBad = false;
-							prevx = x;
-							prevy = y;
 							placeMark(Board[x],CharBoard[x],y,2);
 							checkWin(Board[x],x);
 							x=y;
@@ -734,8 +742,6 @@
 						y = pointBasedAIMoveChoice(x);
 						if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 							p2ValBad = false;
-							prevx = x;
-							prevy = y;
 							placeMark(Board[x],CharBoard[x],y,1);
 							checkWin(Board[x],x);
 							x=y;
