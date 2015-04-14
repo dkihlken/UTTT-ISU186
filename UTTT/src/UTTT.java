@@ -555,6 +555,8 @@
 					p1ValBad = false;
 					x = ix;
 					y = iy;
+					prevx = x;
+					prevy = y;
 					placeMark(Board[x],CharBoard[x],y,1);
 					x = y;
 					printGrid(CharBoard);
@@ -588,6 +590,8 @@
 					y = pointBasedAIMoveChoice(x);
 					if(y<=8 && y>=0 && checkValidMove(Board[x],y)){
 						p1ValBad = false;
+						prevx = x;
+						prevy = y;
 						placeMark(Board[x],CharBoard[x],y,2);
 						checkWin(Board[x],x);
 						x=y;
@@ -615,6 +619,8 @@
 								p2ValBad = false;
 								x = ix;
 								y = iy;
+								prevx = x;
+								prevy = y;
 								placeMark(Board[x],CharBoard[x],y,1);
 								checkWin(Board[x],x);
 								x=y;
@@ -636,6 +642,8 @@
 							if(ix == x && iy<=8 && iy>=0 && checkValidMove(Board[x],iy)){
 								y = iy;
 								p2ValBad = false;
+								prevx = x;
+								prevy = y;
 								placeMark(Board[x],CharBoard[x],y,1);
 								checkWin(Board[x],x);
 								x=y;
