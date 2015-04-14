@@ -143,8 +143,7 @@
 					bList[i][j].setIcon(imgx);
 					if(A[i][j] == 'O')
 					bList[i][j].setIcon(imgo);
-					if(A[i][j] == ' ')
-					bList[i][j].setIcon(null);
+					
 				}
 			}
 			
@@ -1368,22 +1367,7 @@
 			        frame.pack();
 			        frame.setVisible(true);
 				}
-				for(int i = 0; i < 9; i++){
-					BigBoard[i] = 0;
-					for(int j = 0; j < 9 ; j++){
-						Board[i][j] = 0;
-						CharBoard[i][j] = ' ';
-						bList[i][j].setIcon(null);
-					}
-				}
-				x = 0;
-				y = 0;
-				ix = 0;
-				iy = 0;
-				prevx = 0;
-				prevy = 0;
-				mode = -1;
-				winner1 = -1;
+				
 				menuState = true;
 				while(menuState){
 					try {
@@ -1391,9 +1375,17 @@
 					} catch (InterruptedException e) {
 					}
 				}
+				for(int i = 0; i < 9; i++){
+					BigBoard[i] = 0;
+					for(int j = 0; i < 9 ; i++){
+						Board[i][j] = 0;
+						CharBoard[i][j] = ' ';
+						bList[i][j].setIcon(null);
+					}
+				}
+				winner1 = 0;
 				menu.setVisible(false);
 				window.setVisible(true);
-				printGrid(CharBoard);
 			}while(true);
 		}
 	}

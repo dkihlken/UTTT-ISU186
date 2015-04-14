@@ -41,7 +41,7 @@
 		public static int mode = -1;
 		public static int prevx;
 		public static int prevy;
-		public static JFrame menu = new JFrame("Choose a mode");
+		
 		
 		@Override
 		public void actionPerformed(ActionEvent a) {
@@ -143,8 +143,7 @@
 					bList[i][j].setIcon(imgx);
 					if(A[i][j] == 'O')
 					bList[i][j].setIcon(imgo);
-					if(A[i][j] == ' ')
-					bList[i][j].setIcon(null);
+					
 				}
 			}
 			
@@ -676,6 +675,8 @@
 		}
 		
 		public static void runZeroPlayer(){
+			int x;  //Big Board
+			int y;  //Little Board
 			boolean p1ValBad = true;  // ends the x loop
 			boolean p2ValBad = true;  // ends the y loop
 			//Initial moves
@@ -1172,7 +1173,7 @@
 			  
 			w.setSize(1020, 1020);
 			w.setContentPane(new JLabel(new ImageIcon("Grid.png")));
-			w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			w.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	        w.setLayout(new GridLayout(9,9,15,15));
 	        
 			for(int i = 0; i < 9; i++){
@@ -1269,9 +1270,9 @@
 				}
 			}
 			
-			
+			JFrame menu = new JFrame("Choose a mode");
 			menu.setSize(1000, 100);
-			menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			menu.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	        menu.setLayout(new GridLayout(1,5,15,15));
 			menu.add(p2);
 			menu.add(p1easy);
@@ -1289,13 +1290,6 @@
 			p1medium.addActionListener(this);
 			p1hard.addActionListener(this);
 			menu.setVisible(true);
-			
-		}
-		
-		public static void main(String[] args) {
-			JFrame window = new JFrame("UTTT");
-			new UTTT(window);
-			
 			menuState = true;
 			while(menuState){
 				
@@ -1305,95 +1299,69 @@
 				}
 			}
 			menu.setVisible(false);
-			window.setVisible(true);
-			
-			
+			w.setVisible(true);
+		}
+		
+		public static void main(String[] args) {
+			JFrame window = new JFrame("UTTT");
+			new UTTT(window);
 			
 			printGrid(CharBoard);
 			do{
-				
-				if(mode == 0){
-					runTwoPlayer();
-				}
-				if(mode == 1){
-					runOnePlayerEasy();
-				}
-				if(mode == 2){
-					runOnePlayerMedium();
-				}
-				if(mode == 3){
-					runOnePlayerHard();
-				}
-				if(mode == 4){
-					runZeroPlayer();	
-				}
-				if(checkBigBoardWin(BigBoard)==1){
-					winner1 = 1;
-				}
-				if(checkBigBoardWin(BigBoard)==2){
-					winner1 = 2;
-				}
-				if(checkBigBoardWin(BigBoard)==0){
-					winner1 = 0;
-				}
-				menu.setVisible(true);
-				window.setVisible(false);
-				if(winner1 == 1){
-					JFrame frame = new JFrame("Winner");
-			        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-	
-			        JLabel label = new JLabel("The winner is X!!!!!");
-			        frame.getContentPane().add(label);
-	
-			        frame.pack();
-			        frame.setVisible(true);
-				}
-				if(winner1 == 2){
-					JFrame frame = new JFrame("Winner");
-			        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-	
-			        JLabel label = new JLabel("The winner is O!!!!!");
-			        frame.getContentPane().add(label);
-	
-			        frame.pack();
-			        frame.setVisible(true);
-				}
-				if(winner1 == 0){
-					JFrame frame = new JFrame("Winner");
-			        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-	
-			        JLabel label = new JLabel("It's a Tie!!!!!");
-			        frame.getContentPane().add(label);
-	
-			        frame.pack();
-			        frame.setVisible(true);
-				}
-				for(int i = 0; i < 9; i++){
-					BigBoard[i] = 0;
-					for(int j = 0; j < 9 ; j++){
-						Board[i][j] = 0;
-						CharBoard[i][j] = ' ';
-						bList[i][j].setIcon(null);
-					}
-				}
-				x = 0;
-				y = 0;
-				ix = 0;
-				iy = 0;
-				prevx = 0;
-				prevy = 0;
-				mode = -1;
-				winner1 = -1;
-				menuState = true;
-				while(menuState){
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-					}
-				}
-				menu.setVisible(false);
-				window.setVisible(true);
-				printGrid(CharBoard);
+			if(mode == 0){
+				runTwoPlayer();
+			}
+			if(mode == 1){
+				runOnePlayerEasy();
+			}
+			if(mode == 2){
+				runOnePlayerMedium();
+			}
+			if(mode == 3){
+				runOnePlayerHard();
+			}
+			if(mode == 4){
+				runZeroPlayer();	
+			}
+			if(checkBigBoardWin(BigBoard)==1){
+				winner1 = 1;
+			}
+			if(checkBigBoardWin(BigBoard)==2){
+				winner1 = 2;
+			}
+			if(checkBigBoardWin(BigBoard)==0){
+				winner1 = 0;
+			}
+			if(winner1 == 1){
+				JFrame frame = new JFrame("Winner");
+		        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+		        JLabel label = new JLabel("The winner is X!!!!!");
+		        frame.getContentPane().add(label);
+
+		        frame.pack();
+		        frame.setVisible(true);
+			}
+			if(winner1 == 2){
+				JFrame frame = new JFrame("Winner");
+		        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+		        JLabel label = new JLabel("The winner is O!!!!!");
+		        frame.getContentPane().add(label);
+
+		        frame.pack();
+		        frame.setVisible(true);
+			}
+			if(winner1 == 0){
+				JFrame frame = new JFrame("Winner");
+		        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+		        JLabel label = new JLabel("It's a Tie!!!!!");
+		        frame.getContentPane().add(label);
+
+		        frame.pack();
+		        frame.setVisible(true);
+			}
 			}while(true);
 		}
 	}

@@ -1374,6 +1374,8 @@
 						Board[i][j] = 0;
 						CharBoard[i][j] = ' ';
 						bList[i][j].setIcon(null);
+
+						System.out.println(Board[i][j]);
 					}
 				}
 				x = 0;
