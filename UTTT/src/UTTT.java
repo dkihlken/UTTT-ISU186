@@ -146,6 +146,21 @@
 					
 				}
 			}
+			
+			
+			for(int i = 0; i < 9; i++){
+				if (BigBoard[i]==1){
+					for(int j = 0; j < 9; j++){
+						bList[i][j].setIcon(imgx);
+					}
+				}
+				if (BigBoard[i]==2){
+					for(int j = 0; j < 9; j++){
+						bList[i][j].setIcon(imgo);
+					}
+				}
+			}
+			
 			if(A[prevx][prevy] == 'O')
 				bList[prevx][prevy].setIcon(himgo);
 			if(A[prevx][prevy] == 'X')
