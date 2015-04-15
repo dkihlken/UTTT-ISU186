@@ -148,7 +148,6 @@
 				}
 			}
 			
-			
 			for(int i = 0; i < 9; i++){
 				if (BigBoard[i]==1){
 					for(int j = 0; j < 9; j++){
@@ -278,7 +277,7 @@
 								y = iy;
 								prevx = x;
 								prevy = y;
-								placeMark(Board[x],CharBoard[x],y,2);
+								placeMark(Board[x],CharBoard[x],y,1);
 								checkWin(Board[x],x);
 								x=y;
 								printGrid(CharBoard);
@@ -399,7 +398,7 @@
 								y = iy;
 								prevx = x;
 								prevy = y;
-								placeMark(Board[x],CharBoard[x],y,2);
+								placeMark(Board[x],CharBoard[x],y,1);
 								checkWin(Board[x],x);
 								x=y;
 								printGrid(CharBoard);
@@ -516,7 +515,7 @@
 								y = iy;
 								prevx = x;
 								prevy = y;
-								placeMark(Board[x],CharBoard[x],y,2);
+								placeMark(Board[x],CharBoard[x],y,1);
 								checkWin(Board[x],x);
 								x=y;
 								printGrid(CharBoard);
