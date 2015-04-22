@@ -1169,7 +1169,8 @@
 			    himgx = new ImageIcon("hX.png");
 			    himgo = new ImageIcon("hO.png");
 			  
-			w.setSize(1020, 1020);
+			w.setSize(765, 765);
+			w.setResizable(false);
 			w.setContentPane(new JLabel(new ImageIcon("Grid.png")));
 			w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        w.setLayout(new GridLayout(9,9,15,15));
